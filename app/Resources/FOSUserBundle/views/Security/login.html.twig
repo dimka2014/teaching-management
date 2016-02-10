@@ -9,7 +9,7 @@
 
     <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-        <h2 class="form-signin-heading">{{ 'security.login.please_sign_in'|trans }}</h2>
+        <h2 class="form-signin-heading">{{ 'layout.login'|trans }}</h2>
         <label for="inputEmail" class="sr-only">{{ 'security.login.username'|trans }}</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control" placeholder="{{ 'security.login.username'|trans }}" autofocus="" />
         <label for="inputPassword" class="sr-only">{{ 'security.login.password'|trans }}</label>
