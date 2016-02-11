@@ -1,5 +1,10 @@
+admin:
+    resource: "@AppBundle/Controller/Admin/"
+    prefix:   /admin
+    type:     annotation
+
 app:
-    resource: "@AppBundle/Controller/"
+    resource: "@AppBundle/Controller/DefaultController.php"
     type:     annotation
 
 fos_user:

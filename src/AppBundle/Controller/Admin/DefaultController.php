@@ -1,14 +1,11 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-/**
- * @Route("/admin")
- */
-class AdminController
+class DefaultController
 {
     /**
      * @Route("/", name="admin_homepage")

@@ -2,3 +2,8 @@ menu:
     title: Умничка
     logout: Выйти
     profile: Профиль
+    children:
+        name: Дети
+        list: Список детей
+        add_child: Добавить ребенка
+
