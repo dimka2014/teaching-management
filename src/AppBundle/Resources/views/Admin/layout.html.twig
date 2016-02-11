@@ -1,0 +1,8 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    {% block header %}
+        {% include '@App/Admin/menu.html.twig' %}
+    {% endblock %}
+    {% block admin_content %}{% endblock %}
+{% endblock %}
