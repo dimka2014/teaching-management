@@ -6,4 +6,37 @@ menu:
         name: Дети
         list: Список детей
         add_child: Добавить ребенка
+        payments: Платежи
+    actions: Действия
+    details: Детали
+    buttons:
+        create: Создать
+        edit: Редактировать
+flash_messages:
+    child_created: Учетная запись ребенка успешно создана!
+    child_edited: Изменения сохранены
+    child_deleted: Запись успешно удалена
+navigation:
+    back: Назад
 
+forms:
+    create: Создать
+    save: Сохранить
+    delete: Удалить
+children:
+    create: Добавление ребенка
+    form:
+        name: Имя ребенка
+        parent: Имя родителя
+        parent_phone: Телефон родителя
+        parent_email: E-mail родителя
+        leson_price: Цена занятия
+        parents_accounts: Аккаунты родителей
+        sections: Секции
+        balance: Баланс
+        created_at: Дата создания
+    balance: Текущий баланс
+    edit: Редактирование
+
+currency:
+    uah: "%value% грн."

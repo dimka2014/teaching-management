@@ -15,7 +15,12 @@ class ChildRepository extends EntityRepository
      */
     public function listPaginated($page, $size)
     {
-        $result = new Pagerfanta(new DoctrineORMAdapter($this->createQueryBuilder('ch')));
+        $result = new Pagerfanta(new DoctrineORMAdapter(
+            $this
+                ->createQueryBuilder('ch')
+                ->orderBy('ch.name', 'ASC')
+        ));
+
         $result->setMaxPerPage($size);
         $result->setCurrentPage($page);
 

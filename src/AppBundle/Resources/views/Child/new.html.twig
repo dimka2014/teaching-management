@@ -1,0 +1,14 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% extends '@App/Admin/layout.html.twig' %}
+
+{% block admin_content %}
+    {{ form_start(form, { 'attr': { 'class': 'form-middle' }}) }}
+        <h1>{{ 'children.create'|trans }}</h1>
+        {{ form_widget(form) }}
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'forms.create'|trans }}" />
+    {{ form_end(form) }}
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('child_index')) }}
+{% endblock %}

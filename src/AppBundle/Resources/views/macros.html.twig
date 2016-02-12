@@ -1,0 +1,11 @@
+{% macro backBlock(link) %}
+    <nav>
+        <ul class="pager">
+            <li class="previous">
+                <a href="{{ link }}">
+                    <span aria-hidden="true">&larr;</span> {{ 'navigation.back'|trans }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endmacro %}

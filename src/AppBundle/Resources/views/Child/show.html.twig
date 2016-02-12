@@ -1,0 +1,49 @@
+{% extends '@App/Admin/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>
+        {{ 'menu.details'|trans }}
+        <div class="delete-form">
+            {{ form_start(delete_form) }}
+            <input class="btn btn-sm btn-danger btn-block" type="submit" value="{{ 'forms.delete'|trans }}" />
+            {{ form_end(delete_form) }}
+        </div>
+        <a href="{{ path('child_edit', { 'id': child.id }) }}" class="btn btn-sm btn-primary btn-block edit-details">{{ 'children.edit'|trans }}</a>
+    </h2>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>{{ 'children.form.name'|trans }}</th>
+                <td>{{ child.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent'|trans }}</th>
+                <td>{{ child.parentName }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent_phone'|trans }}</th>
+                <td>{{ child.parentPhone }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent_email'|trans }}</th>
+                <td>{{ child.parentEmail }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.balance'|trans }}</th>
+                <td>{{ 'currency.uah'|trans({'%value%': child.balance}) }} </td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.leson_price'|trans }}</th>
+                <td>{{ 'currency.uah'|trans({'%value%': child.lessonPrice}) }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.created_at'|trans }}</th>
+                <td>{{ child.createdAt|date }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('child_index')) }}
+{% endblock %}

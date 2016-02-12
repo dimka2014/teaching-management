@@ -48,7 +48,7 @@ class Child
     /**
      * @ORM\Column(type="integer")
      */
-    protected $balance;
+    protected $balance = 0;
 
     /**
      * @ORM\Column(type="integer")
@@ -69,6 +69,12 @@ class Child
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Section", mappedBy="children")
      */
     protected $sections;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    protected $createdAt;
+
     /**
      * Constructor
      */
@@ -77,6 +83,7 @@ class Child
         $this->parents = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -324,5 +331,13 @@ class Child
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }
