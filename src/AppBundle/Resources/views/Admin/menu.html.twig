@@ -16,11 +16,11 @@
                         {{ 'menu.children.name'|trans }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ path('child_new') }}">{{ 'menu.children.add_child'|trans }}</a></li>
-                        <li><a href="{{ path('child_index') }}">{{ 'menu.children.list'|trans }}</a></li>
+                        <li><a href="{{ path('child_new') }}">{{ 'menu.add'|trans }}</a></li>
+                        <li><a href="{{ path('child_index') }}">{{ 'menu.list'|trans }}</a></li>
                     </ul>
                 </li>
-                {#<li><a href="#">Contact</a></li>#}
+                <li><a href="{{ path('section_index') }}">{{ 'menu.sections.name'|trans }}</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('fos_user_profile_show') }}">{{ 'menu.profile'|trans }}</a></li>

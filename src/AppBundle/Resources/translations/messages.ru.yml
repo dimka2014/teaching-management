@@ -4,18 +4,21 @@ menu:
     profile: Профиль
     children:
         name: Дети
-        list: Список детей
-        add_child: Добавить ребенка
         payments: Платежи
     actions: Действия
     details: Детали
     buttons:
         create: Создать
         edit: Редактировать
+    sections:
+        name: Секции
+    add: Добавить
+    list: Список
 flash_messages:
     child_created: Учетная запись ребенка успешно создана!
-    child_edited: Изменения сохранены
-    child_deleted: Запись успешно удалена
+    edited: Изменения сохранены
+    deleted: Запись успешно удалена
+    section_created: Секция добавлена
 navigation:
     back: Назад
 
@@ -37,6 +40,11 @@ children:
         created_at: Дата создания
     balance: Текущий баланс
     edit: Редактирование
-
+section:
+    form:
+        name: Секция
+        new_section: Новая секция
+    lessons: Занятия
+    edit: Редактирование секции
 currency:
     uah: "%value% грн."

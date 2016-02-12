@@ -30,7 +30,7 @@ class Lesson
     protected $section;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="lessons")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="lesson")
      */
     protected $attendences;
 

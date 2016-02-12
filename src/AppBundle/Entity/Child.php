@@ -71,6 +71,11 @@ class Child
     protected $sections;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="child")
+     */
+    protected $attendences;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     protected $createdAt;
@@ -83,6 +88,7 @@ class Child
         $this->parents = new ArrayCollection();
         $this->payments = new ArrayCollection();
         $this->sections = new ArrayCollection();
+        $this->attendences = new ArrayCollection();
         $this->createdAt = new \DateTime();
     }
 
@@ -339,5 +345,38 @@ class Child
     public function getCreatedAt()
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Add attendences
+     *
+     * @param Attendence $attendences
+     * @return Lesson
+     */
+    public function addAttendence(Attendence $attendences)
+    {
+        $this->attendences[] = $attendences;
+
+        return $this;
+    }
+
+    /**
+     * Remove attendences
+     *
+     * @param Attendence $attendences
+     */
+    public function removeAttendence(Attendence $attendences)
+    {
+        $this->attendences->removeElement($attendences);
+    }
+
+    /**
+     * Get attendences
+     *
+     * @return Collection
+     */
+    public function getAttendences()
+    {
+        return $this->attendences;
     }
 }

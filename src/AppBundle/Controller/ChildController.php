@@ -98,7 +98,7 @@ class ChildController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($child);
             $em->flush();
-            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.child_edited'));
+            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.edited'));
 
             return $this->redirectToRoute('child_edit', array('id' => $child->getId()));
         }
@@ -125,7 +125,7 @@ class ChildController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($child);
             $em->flush();
-            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.child_deleted'));
+            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.deleted'));
         }
 
         return $this->redirectToRoute('child_index');

@@ -3,7 +3,7 @@
 {% block admin_content %}
     <div class="form-middle">
         <h2>
-            {{ 'children.edit'|trans }}
+            {{ 'section.edit'|trans }}
             <div class="delete-form">
                 {{ form_start(delete_form) }}
                 <input class="btn btn-sm btn-danger btn-block" type="submit" value="{{ 'forms.delete'|trans }}" />
@@ -18,5 +18,5 @@
     </div>
 
     {% from '@App/macros.html.twig' import backBlock %}
-    {{ backBlock(path('child_index')) }}
+    {{ backBlock(path('section_index')) }}
 {% endblock %}
