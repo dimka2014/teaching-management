@@ -10,6 +10,7 @@ menu:
     buttons:
         create: Создать
         edit: Редактировать
+        delete: Удалить
     sections:
         name: Секции
     add: Добавить
@@ -19,6 +20,8 @@ flash_messages:
     edited: Изменения сохранены
     deleted: Запись успешно удалена
     section_created: Секция добавлена
+    payment_created: Платежж добавлен
+    payment_removed: Платеж успешно удален
 navigation:
     back: Назад
 
@@ -48,3 +51,7 @@ section:
     edit: Редактирование секции
 currency:
     uah: "%value% грн."
+
+payment:
+    created_at_date: Дата создания
+    sum: Сумма платежа

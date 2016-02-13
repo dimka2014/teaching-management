@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Payment;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -129,6 +132,84 @@ class ChildController extends Controller
         }
 
         return $this->redirectToRoute('child_index');
+    }
+
+    /**
+     * Lists all Payment entities by child.
+     *
+     * @Route("/{id}/payments", name="payments_by_child_index")
+     * @Method("GET")
+     * @Template
+     */
+    public function paymentsIndexByChildAction(Child $child, Request $request)
+    {
+        $payment = new Payment();
+        $form = $this->createForm('AppBundle\Form\PaymentType', $payment);
+
+        $payments = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Payment')
+            ->getPaginatedPaymentsByChild($child, $request->get('page', 1), $this->getParameter('page_size'));
+
+        return [
+            'child' => $child,
+            'payments' => $payments,
+            'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * Creates a new Payment entity.
+     *
+     * @Route("/{id}/payments/new", name="payment_new")
+     * @Method({"POST"})
+     */
+    public function newPaymentAction(Child $child, Request $request)
+    {
+        $payment = new Payment($child);
+        $form = $this->createForm('AppBundle\Form\PaymentType', $payment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $child->setBalance($child->getBalance() + $payment->getSum());
+
+            $em->transactional(function(EntityManager $em) use ($child, $payment) {
+                $em->persist($child);
+                $em->persist($payment);
+            });
+
+            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.payment_created'));
+        } else {
+            foreach ($form->getErrors() as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+            foreach ($form->get('sum')->getErrors() as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
+        return $this->redirectToRoute('payments_by_child_index', ['id' => $child->getId()]);
+    }
+
+    /**
+     * Creates a new Payment entity.
+     *
+     * @Route("/{id}/payments/{paymentId}", name="payment_delete")
+     * @ParamConverter("payment", class="AppBundle:Payment", options={"id" = "paymentId"})
+     * @Method({"DELETE"})
+     */
+    public function deletePaymentAction(Child $child, Payment $payment, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $child->setBalance($child->getBalance() - $payment->getSum());
+        $em->transactional(function(EntityManager $em) use ($child, $payment) {
+            $em->persist($child);
+            $em->remove($payment);
+        });
+        $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.payment_removed'));
+
+        return $this->redirectToRoute('payments_by_child_index', ['id' => $child->getId()]);
     }
 
     /**

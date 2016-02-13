@@ -1,0 +1,41 @@
+{% extends '@App/Admin/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>{{ 'menu.children.payments'|trans }}: {{ child.name }}</h2>
+    {{ form_start(form, { 'attr': { 'action': path('payment_new', {'id': child.id })}}) }}
+        <div class="input-group">
+            {{ form_widget(form.sum, { 'attr': { 'placeholder': 'payment.sum'|trans }}) }}
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">{{ 'menu.add'|trans }}</button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+    <table class="table table-bordered table-striped children-table">
+        <thead>
+        <tr>
+            <th>{{ 'payment.created_at_date'|trans }}</th>
+            <th>{{ 'payment.sum'|trans }}</th>
+            <th class="table-last">{{ 'menu.actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr>
+                <th>{{ payment.createdAt|date }}</th>
+                <th>{{ 'currency.uah'|trans({'%value%': payment.sum}) }}</th>
+                <th class="table-last">
+                    <form method="post", action="{{ path('payment_delete', {'id': child.id, 'paymentId': payment.id}) }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-default">{{ 'menu.buttons.delete'|trans }}</button>
+                    </form>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ pagerfanta(payments) }}
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('child_show', {'id': child.id })) }}
+{% endblock %}
+

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\PaymentRepository")
  * @ORM\Table(name="payment")
  */
 class Payment
@@ -34,6 +34,11 @@ class Payment
      */
     protected $sum;
 
+    public function __construct(Child $child = null)
+    {
+        $this->child = $child;
+        $this->createdAt = new \DateTime();
+    }
 
     /**
      * Get id
