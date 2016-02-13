@@ -9,6 +9,7 @@
             {{ form_end(delete_form) }}
         </div>
         <a href="{{ path('child_edit', { 'id': child.id }) }}" class="btn btn-sm btn-primary btn-block edit-details">{{ 'children.edit'|trans }}</a>
+        <a href="{{ path('payments_by_child_index', { 'id': child.id }) }}" class="btn btn-sm btn-default btn-block edit-details">{{ 'menu.children.payments'|trans }}</a>
     </h2>
 
     <table class="table table-bordered table-striped">

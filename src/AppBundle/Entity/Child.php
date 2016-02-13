@@ -379,4 +379,9 @@ class Child
     {
         return $this->attendences;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
