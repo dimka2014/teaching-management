@@ -6,6 +6,7 @@ use AppBundle\Entity\Payment;
 use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -21,8 +22,6 @@ use AppBundle\Form\ChildType;
 class ChildController extends Controller
 {
     /**
-     * Lists all Child entities.
-     *
      * @Route("/", name="child_index")
      * @Method("GET")
      * @Template()
@@ -40,8 +39,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Creates a new Child entity.
-     *
      * @Route("/new", name="child_new")
      * @Method({"GET", "POST"})
      * @Template()
@@ -68,8 +65,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Finds and displays a Child entity.
-     *
      * @Route("/{id}", name="child_show")
      * @Method("GET")
      * @Template
@@ -85,8 +80,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Child entity.
-     *
      * @Route("/{id}/edit", name="child_edit")
      * @Method({"GET", "POST"})
      * @Template
@@ -114,8 +107,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Deletes a Child entity.
-     *
      * @Route("/{id}", name="child_delete")
      * @Method("DELETE")
      */
@@ -135,8 +126,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Lists all Payment entities by child.
-     *
      * @Route("/{id}/payments", name="payments_by_child_index")
      * @Method("GET")
      * @Template
@@ -159,8 +148,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Creates a new Payment entity.
-     *
      * @Route("/{id}/payments/new", name="payment_new")
      * @Method({"POST"})
      */
@@ -193,8 +180,6 @@ class ChildController extends Controller
     }
 
     /**
-     * Creates a new Payment entity.
-     *
      * @Route("/{id}/payments/{paymentId}", name="payment_delete")
      * @ParamConverter("payment", class="AppBundle:Payment", options={"id" = "paymentId"})
      * @Method({"DELETE"})
@@ -213,11 +198,8 @@ class ChildController extends Controller
     }
 
     /**
-     * Creates a form to delete a Child entity.
-     *
      * @param Child $child The Child entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createDeleteForm(Child $child)
     {

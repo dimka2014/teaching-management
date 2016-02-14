@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Lesson;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -18,8 +21,6 @@ use AppBundle\Form\SectionType;
 class SectionController extends Controller
 {
     /**
-     * Lists all Section entities.
-     *
      * @Route("/", name="section_index")
      * @Method("GET")
      * @Template
@@ -36,8 +37,6 @@ class SectionController extends Controller
     }
 
     /**
-     * Creates a new Section entity.
-     *
      * @Route("/new", name="section_new")
      * @Method({"POST"})
      */
@@ -59,8 +58,58 @@ class SectionController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Section entity.
+     * @Route("/{id}/lessons", name="lessons_index_by_section")
+     * @Method("GET")
+     * @Template
+     */
+    public function lessonsIndexBySectionAction(Section $section, Request $request)
+    {
+        $form = $this->createForm('AppBundle\Form\LessonType', new Lesson());
+
+        $lessons = $this
+            ->getDoctrine()
+            ->getRepository('AppBundle:Lesson')
+            ->getPaginatedLessonsBySection($section, $request->get('page', 1), $this->getParameter('page_size'));
+
+        return [
+            'section' => $section,
+            'lessons' => $lessons,
+            'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * Creates a new Lesson entity.
      *
+     * @Route("/{id}/lessons/new", name="lesson_new")
+     * @Method({"POST"})
+     */
+    public function newLessonAction(Section $section, Request $request)
+    {
+        $lesson = new Lesson();
+        $form = $this->createForm('AppBundle\Form\LessonType', $lesson);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $lesson->setSection($section);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($lesson);
+            $em->flush();
+
+            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.lesson_created'));
+        } else {
+            foreach ($form->getErrors() as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+            foreach ($form->get('time')->getErrors() as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
+        }
+
+        return $this->redirectToRoute('lessons_index_by_section', ['id' => $section->getId()]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="section_edit")
      * @Method({"GET", "POST"})
      * @Template
@@ -88,8 +137,6 @@ class SectionController extends Controller
     }
 
     /**
-     * Deletes a Section entity.
-     *
      * @Route("/{id}", name="section_delete")
      * @Method("DELETE")
      */
@@ -109,11 +156,23 @@ class SectionController extends Controller
     }
 
     /**
-     * Creates a form to delete a Section entity.
-     *
+     * @Route("/{id}/lessons/{lessonId}", name="lesson_delete")
+     * @ParamConverter("lesson", class="AppBundle:Lesson", options={"id" = "lessonId"})
+     * @Method({"DELETE"})
+     */
+    public function deleteLessonAction(Section $section, Lesson $lesson)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($lesson);
+        $em->flush();
+        $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.lesson_removed'));
+
+        return $this->redirectToRoute('lessons_index_by_section', ['id' => $section->getId()]);
+    }
+
+    /**
      * @param Section $section The Section entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createDeleteForm(Section $section)
     {

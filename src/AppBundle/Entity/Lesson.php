@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\LessonRepository")
  * @ORM\Table(name="lesson")
  */
 class Lesson
@@ -40,6 +40,7 @@ class Lesson
     public function __construct()
     {
         $this->attendences = new ArrayCollection();
+        $this->time = new \DateTime();
     }
 
     /**

@@ -22,6 +22,8 @@ flash_messages:
     section_created: Секция добавлена
     payment_created: Платежж добавлен
     payment_removed: Платеж успешно удален
+    lesson_created: Урок создан
+    lesson_removed: Урок удален
 navigation:
     back: Назад
 
@@ -55,3 +57,7 @@ currency:
 payment:
     created_at_date: Дата создания
     sum: Сумма платежа
+
+lesson:
+    time: Время урока
+    add_lesson: Добавить занятие

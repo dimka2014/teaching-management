@@ -67,3 +67,7 @@ body {
     float: right;
     margin-top: 6px;
 }
+
+.add-lesson-form {
+    display: inline-flex;
+}

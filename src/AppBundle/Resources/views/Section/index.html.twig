@@ -23,10 +23,9 @@
             <tr>
                 <th>{{ section.name }}</th>
                 <th class="table-last">
-                    <a href="" class="btn btn-default">{{ 'section.lessons'|trans }}</a>
+                    <a href="{{ path('lessons_index_by_section', { 'id': section.id }) }}" class="btn btn-default">{{ 'section.lessons'|trans }}</a>
                     <a href="{{ path('section_edit', { 'id': section.id }) }}"
                        class="btn btn-default">{{ 'menu.buttons.edit'|trans }}</a>
-                    {#<a class="btn btn-default">{{ 'menu.children.payments'|trans }}</a>#}
                 </th>
             </tr>
         {% endfor %}
