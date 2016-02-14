@@ -309,12 +309,15 @@ class Child
     /**
      * Add sections
      *
-     * @param Section $sections
+     * @param Section $section
      * @return Child
      */
-    public function addSection(Section $sections)
+    public function addSection(Section $section)
     {
-        $this->sections[] = $sections;
+        if (!$this->sections->contains($section)) {
+            $this->sections[] = $section;
+            $section->addChild($this);
+        }
 
         return $this;
     }
@@ -322,11 +325,17 @@ class Child
     /**
      * Remove sections
      *
-     * @param Section $sections
+     * @param Section $section
+     * @return Child
      */
-    public function removeSection(Section $sections)
+    public function removeSection(Section $section)
     {
-        $this->sections->removeElement($sections);
+        if ($this->sections->contains($section)) {
+            $this->sections->removeElement($section);
+            $section->removeChild($this);
+        }
+
+        return $this;
     }
 
     /**

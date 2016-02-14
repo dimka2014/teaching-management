@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Lesson;
+use Doctrine\ORM\EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Form;
@@ -163,11 +164,46 @@ class SectionController extends Controller
     public function deleteLessonAction(Section $section, Lesson $lesson)
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($lesson);
-        $em->flush();
+        $em->transactional(function (EntityManager $em) use ($lesson) {
+            foreach ($lesson->getChilds() as $child) {
+                $lesson->removeChild($child);
+                $em->persist($child);
+            }
+            $em->remove($lesson);
+        });
+
         $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.lesson_removed'));
 
-        return $this->redirectToRoute('lessons_index_by_section', ['id' => $section->getId()]);
+        return $this->render('AppBundle:Admin:layout.html.twig');
+    }
+
+    /**
+     * @Route("/{id}/lessons/{lessonId}/attendences", name="lesson_attendences")
+     * @ParamConverter("lesson", class="AppBundle:Lesson", options={"id" = "lessonId"})
+     * @Method({"GET", "POST"})
+     * @Template
+     */
+    public function lessonAttendencesAction(Section $section, Lesson $lesson, Request $request)
+    {
+        $form = $this->createForm('AppBundle\Form\LessonAttendencesType', $lesson, [
+            'section_id' => $section->getId()
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $em->transactional(function(EntityManager $em) use ($lesson) {
+                $em->persist($lesson);
+            });
+
+            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.edited'));
+        }
+
+        return [
+            'section' => $section,
+            'form' => $form->createView(),
+        ];
     }
 
     /**

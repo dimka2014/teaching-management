@@ -61,3 +61,4 @@ payment:
 lesson:
     time: Время урока
     add_lesson: Добавить занятие
+    attendence: Посещаемость

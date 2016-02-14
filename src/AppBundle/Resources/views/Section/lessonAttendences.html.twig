@@ -1,0 +1,14 @@
+{% extends '@App/Admin/layout.html.twig' %}
+
+{% block admin_content %}
+    <div class="form-middle">
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'forms.save'|trans }}"/>
+        {{ form_end(form) }}
+    </div>
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('lessons_index_by_section', {'id': section.id})) }}
+{% endblock %}

@@ -32,7 +32,8 @@ class ChildType extends AbstractType
                 'label' => 'children.form.leson_price'
             ])
             ->add('sections', null, [
-                'label' => 'children.form.sections'
+                'by_reference' => false,
+                'label' => 'children.form.sections',
             ])
         ;
     }

@@ -30,7 +30,7 @@ class Lesson
     protected $section;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="lesson")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="lesson", orphanRemoval=true, cascade={"persist"})
      */
     protected $attendences;
 
@@ -108,6 +108,7 @@ class Lesson
     public function addAttendence(Attendence $attendences)
     {
         $this->attendences[] = $attendences;
+        $attendences->setLesson($this);
 
         return $this;
     }
@@ -125,10 +126,58 @@ class Lesson
     /**
      * Get attendences
      *
-     * @return Collection
+     * @return Collection|Attendence[]
      */
     public function getAttendences()
     {
         return $this->attendences;
+    }
+
+    /**
+     * @return Collection|Child[]
+     */
+    public function getChilds()
+    {
+        return $this->attendences->map(function (Attendence $attendence) {
+            return $attendence->getChild();
+        });
+    }
+
+    public function addChild(Child $child)
+    {
+        if (!$this->getAttendenceByChild($child)) {
+            $attendence = new Attendence();
+            $attendence->setChild($child);
+            $attendence->setPrice($child->getLessonPrice());
+            $child->setBalance($child->getBalance() - $child->getLessonPrice());
+            $this->addAttendence($attendence);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Child $child)
+    {
+        if ($attendence = $this->getAttendenceByChild($child)) {
+            $attendence->getChild()->setBalance($attendence->getChild()->getBalance() + $attendence->getPrice());
+            $this->removeAttendence($attendence);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Child $child
+     * @return Attendence|null
+     */
+    public function getAttendenceByChild(Child $child)
+    {
+        foreach ($this->getAttendences() as $attendence) {
+            if ($attendence->getChild()->getId() == $child->getId()) {
+                return $attendence;
+            }
+        }
+
+        return null;
     }
 }
