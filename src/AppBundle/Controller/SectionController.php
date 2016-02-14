@@ -117,7 +117,6 @@ class SectionController extends Controller
      */
     public function editAction(Request $request, Section $section)
     {
-        $deleteForm = $this->createDeleteForm($section);
         $editForm = $this->createForm('AppBundle\Form\SectionType', $section);
         $editForm->handleRequest($request);
 
@@ -133,27 +132,7 @@ class SectionController extends Controller
         return [
             'section' => $section,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ];
-    }
-
-    /**
-     * @Route("/{id}", name="section_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Section $section)
-    {
-        $form = $this->createDeleteForm($section);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($section);
-            $em->flush();
-            $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.deleted'));
-        }
-
-        return $this->redirectToRoute('section_index');
     }
 
     /**
@@ -204,18 +183,5 @@ class SectionController extends Controller
             'section' => $section,
             'form' => $form->createView(),
         ];
-    }
-
-    /**
-     * @param Section $section The Section entity
-     * @return Form The form
-     */
-    private function createDeleteForm(Section $section)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('section_delete', array('id' => $section->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

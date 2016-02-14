@@ -4,11 +4,6 @@
     <div class="form-middle">
         <h2>
             {{ 'section.edit'|trans }}
-            <div class="delete-form">
-                {{ form_start(delete_form) }}
-                <input class="btn btn-sm btn-danger btn-block" type="submit" value="{{ 'forms.delete'|trans }}" />
-                {{ form_end(delete_form) }}
-            </div>
         </h2>
         {{ form_start(edit_form) }}
 
