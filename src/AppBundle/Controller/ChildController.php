@@ -117,7 +117,9 @@ class ChildController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($child);
+            $em->transactional(function(EntityManager $em) use ($child) {
+                $em->remove($child);
+            });
             $em->flush();
             $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.deleted'));
         }

@@ -61,7 +61,7 @@ class Child
     protected $parents;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="child")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Payment", mappedBy="child", cascade={"remove"})
      */
     protected $payments;
 
@@ -71,7 +71,7 @@ class Child
     protected $sections;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="child")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Attendence", mappedBy="child", cascade={"remove"})
      */
     protected $attendences;
 
