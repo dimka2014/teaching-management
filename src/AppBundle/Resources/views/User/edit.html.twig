@@ -1,0 +1,13 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <div class="form-middle">
+        {{ form_start(edit_form) }}
+            {{ form_widget(edit_form) }}
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'forms.save'|trans }}" />
+        {{ form_end(edit_form) }}
+    </div>
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('all_users')) }}
+{% endblock %}

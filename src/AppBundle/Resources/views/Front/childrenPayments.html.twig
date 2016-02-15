@@ -1,0 +1,26 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>{{ 'menu.children.payments'|trans }}: {{ child.name }}</h2>
+    <table class="table table-bordered table-striped children-table">
+        <thead>
+        <tr>
+            <th>{{ 'payment.created_at_date'|trans }}</th>
+            <th>{{ 'payment.sum'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr>
+                <th>{{ payment.createdAt|date }}</th>
+                <th>{{ 'currency.uah'|trans({'%value%': payment.sum}) }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ pagerfanta(payments) }}
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('my_children')) }}
+{% endblock %}
+

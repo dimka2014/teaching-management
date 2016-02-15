@@ -1,0 +1,26 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>{{ title }}</h2>
+    <table class="table table-bordered table-striped children-table">
+        <thead>
+        <tr>
+            <th>{{ 'users.username'|trans }}</th>
+            <th>{{ 'users.email'|trans }}</th>
+            <th class="table-last">{{ 'menu.actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th>{{ user.username }}</th>
+                <th>{{ user.email }}</th>
+                <th class="table-last">
+                    <a href="{{ path('user_edit', { 'id': user.id }) }}" class="btn btn-default">{{ 'menu.buttons.edit'|trans }}</a>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ pagerfanta(users) }}
+{% endblock %}

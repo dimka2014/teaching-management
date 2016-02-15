@@ -24,7 +24,9 @@
         {% block content %}{% endblock %}
     </div>
 
-    <script src="{{ asset('bundles/app/js/jquery-2.2.0.min.js') }}"></script>
-    <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+    {% block js %}
+        <script src="{{ asset('bundles/app/js/jquery-2.2.0.min.js') }}"></script>
+        <script src="{{ asset('bundles/app/js/bootstrap.min.js') }}"></script>
+    {% endblock %}
 </body>
 </html>

@@ -1,0 +1,26 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>{{ child.name }}: {{ 'my_childre.attendence'|trans }}</h2>
+    <table class="table table-bordered table-striped children-table">
+        <thead>
+        <tr>
+            <th>{{ 'my_childre.date_attendence'|trans }}</th>
+            <th>{{ 'my_childre.section_attendence'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for attendence in attendences %}
+            <tr>
+                <th>{{ attendence.lesson.time|date }}</th>
+                <th>{{ attendence.lesson.section.name }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ pagerfanta(attendences) }}
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('my_children')) }}
+{% endblock %}
+

@@ -1,0 +1,70 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    {% for child in children %}
+        <h2>{{ child.name }}</h2>
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <th>{{ 'children.form.name'|trans }}</th>
+                <td>{{ child.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent'|trans }}</th>
+                <td>{{ child.parentName }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent_phone'|trans }}</th>
+                <td>{{ child.parentPhone }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.parent_email'|trans }}</th>
+                <td>{{ child.parentEmail }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.balance'|trans }}</th>
+                <td>
+                    <a href="{{ path('my_children_payments', {'childId': child.id}) }}"
+                       data-toggle="tooltip" data-placement="bottom" title="{{ 'child.show_all_payments'|trans }}">
+                        {{ 'currency.uah'|trans({'%value%': child.balance}) }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>{{ 'children.form.leson_price'|trans }}</th>
+                <td>{{ 'currency.uah'|trans({'%value%': child.lessonPrice}) }}</td>
+            </tr>
+            <tr>
+                <th>
+                    <a href="{{ path('my_children_attendence', {'childId': child.id}) }}"
+                       data-toggle="tooltip" data-placement="bottom" title="{{ 'child.show_all_attendences'|trans }}">
+                        {{ 'menu.sections.name'|trans }}
+                    </a>
+                </th>
+                <td>
+                    <ul class="list-group">
+                        {% for section in child.sections %}
+                            <li class="list-group-item">
+                                {{ section.name }}
+                            </li>
+                        {% else %}
+                            {{ 'my_childre.no_sections'|trans }}
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <h1>{{ 'my_childre.wait'|trans }}</h1>
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+{% endblock %}

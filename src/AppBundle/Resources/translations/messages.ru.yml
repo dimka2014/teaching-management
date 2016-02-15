@@ -15,6 +15,9 @@ menu:
         name: Секции
     add: Добавить
     list: Список
+    change_password: Изменить пароль
+    users:
+        name: Пользователи
 flash_messages:
     child_created: Учетная запись ребенка успешно создана!
     edited: Изменения сохранены
@@ -62,3 +65,20 @@ lesson:
     time: Время урока
     add_lesson: Добавить занятие
     attendence: Посещаемость
+
+users:
+    all_users: Все пользователи
+    new_users: Новые пользователи
+    email: E-mail
+    username: Имя пользователя
+    locked: Заблокирован
+
+child:
+    show_all_payments: Посмотреть все платежи
+    show_all_attendences: Посмотреть посещаемость
+my_childre:
+    wait: К вам не привязано ни одного ребенка. Администратор должен отмодерировать ваш профиль.
+    no_sections: Ребенок пока не записан ни на одну секцию
+    attendence: посещаемость
+    date_attendence: Дата
+    section_attendence: Секция
