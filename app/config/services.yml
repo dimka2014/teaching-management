@@ -4,5 +4,8 @@ services:
         arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_subscriber }
+    app_bundle.mailer_service:
+        class: AppBundle\Service\MailerService
+        arguments: [@doctrine.orm.entity_manager, @mailer, %from_email%]
     fos_user.doctrine_registry:
         alias: doctrine

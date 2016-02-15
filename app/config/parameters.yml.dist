@@ -8,5 +8,6 @@ parameters:
     mailer_host:       127.0.0.1
     mailer_user:       ~
     mailer_password:   ~
+    from_email: send@example.com
     secret:            ThisTokenIsNotSoSecretChangeIt
     page_size:         20

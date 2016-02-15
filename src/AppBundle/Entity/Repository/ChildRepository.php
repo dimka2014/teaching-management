@@ -45,4 +45,14 @@ class ChildRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllParentsEmailsAndNames()
+    {
+        return $this
+            ->createQueryBuilder('ch')
+            ->select('ch.parentEmail AS email, ch.parentName AS name')
+            ->distinct(true)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

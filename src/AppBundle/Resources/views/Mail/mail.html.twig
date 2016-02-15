@@ -1,0 +1,12 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    {{ form_start(form, { 'attr': { 'class': 'form-middle' }}) }}
+    <h2>{{ 'menu.sending'|trans }}</h2>
+    {{ form_widget(form) }}
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'forms.send'|trans }}" />
+    {{ form_end(form) }}
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('child_index')) }}
+{% endblock %}

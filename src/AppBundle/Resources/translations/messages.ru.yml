@@ -18,6 +18,7 @@ menu:
     change_password: Изменить пароль
     users:
         name: Пользователи
+    sending: Рассылка
 flash_messages:
     child_created: Учетная запись ребенка успешно создана!
     edited: Изменения сохранены
@@ -27,13 +28,14 @@ flash_messages:
     payment_removed: Платеж успешно удален
     lesson_created: Урок создан
     lesson_removed: Урок удален
+    message_sended: Сообщение отправлено
 navigation:
     back: Назад
-
 forms:
     create: Создать
     save: Сохранить
     delete: Удалить
+    send: Отправить
 children:
     create: Добавление ребенка
     form:
@@ -60,19 +62,16 @@ currency:
 payment:
     created_at_date: Дата создания
     sum: Сумма платежа
-
 lesson:
     time: Время урока
     add_lesson: Добавить занятие
     attendence: Посещаемость
-
 users:
     all_users: Все пользователи
     new_users: Новые пользователи
     email: E-mail
     username: Имя пользователя
     locked: Заблокирован
-
 child:
     show_all_payments: Посмотреть все платежи
     show_all_attendences: Посмотреть посещаемость
@@ -82,3 +81,6 @@ my_childre:
     attendence: посещаемость
     date_attendence: Дата
     section_attendence: Секция
+mail:
+    subject: Тема письма
+    body: Тело письма
