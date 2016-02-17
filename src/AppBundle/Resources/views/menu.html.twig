@@ -34,7 +34,16 @@
                             <li><a href="{{ path('new_users') }}">{{ 'users.new_users'|trans }}</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ path('send_mail') }}">{{ 'menu.sending'|trans }}</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            {{ 'menu.sending'|trans }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('send_mail') }}">{{ 'mail.for_all'|trans }}</a></li>
+                            <li><a href="{{ path('send_mail', { section: true }) }}">{{ 'mail.for_section'|trans }}</a></li>
+                        </ul>
+                    </li>
                 </ul>
             {% endif %}
             <ul class="nav navbar-nav navbar-right">

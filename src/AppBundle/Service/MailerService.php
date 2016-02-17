@@ -2,6 +2,7 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Section;
 use Doctrine\ORM\EntityManager;
 
 class MailerService
@@ -19,12 +20,17 @@ class MailerService
         $this->fromEmail = $fromEmail;
     }
 
-    public function sendMail($subject, $body)
+    /**
+     * @param $subject
+     * @param $body
+     * @param Section|null $section
+     */
+    public function sendMail($subject, $body, Section $section = null)
     {
         $message = \Swift_Message::newInstance();
         $message
             ->setFrom($this->fromEmail)
-            ->setTo($this->getAllRecipients())
+            ->setTo($this->getAllRecipients($section))
             ->setSubject($subject)
             ->setBody($body);
 
@@ -32,12 +38,13 @@ class MailerService
     }
 
     /**
+     * @param Section $section
      * @return array
      */
-    private function getAllRecipients()
+    private function getAllRecipients(Section $section = null)
     {
         $result = [];
-        foreach ($this->em->getRepository('AppBundle:Child')->getAllParentsEmailsAndNames() as $data) {
+        foreach ($this->em->getRepository('AppBundle:Child')->getParentsEmailsAndNames($section) as $data) {
             $result[$data['email']] = $data['name'];
         }
 

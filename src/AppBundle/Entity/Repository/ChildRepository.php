@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\Repository;
 
 use AppBundle\Entity\Child;
+use AppBundle\Entity\Section;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
@@ -46,12 +47,21 @@ class ChildRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getAllParentsEmailsAndNames()
+    public function getParentsEmailsAndNames(Section $section = null)
     {
-        return $this
+        $qb = $this
             ->createQueryBuilder('ch')
             ->select('ch.parentEmail AS email, ch.parentName AS name')
-            ->distinct(true)
+            ->distinct(true);
+
+        if ($section) {
+            $qb
+                ->innerJoin('ch.sections', 'sec')
+                ->where('sec.id = :id')
+                ->setParameter('id', $section->getId());
+        }
+
+        return $qb
             ->getQuery()
             ->getArrayResult();
     }

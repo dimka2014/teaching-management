@@ -20,11 +20,20 @@ class MailController extends Controller
      */
     public function mailAction(Request $request)
     {
-        $form = $this->createForm('AppBundle\Form\MailType');
+        $withSection = $request->get('section', false);
+
+        $form = $this->createForm('AppBundle\Form\MailType', null, [
+            'with_section' => $withSection,
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('app_bundle.mailer_service')->sendMail($form->get('subject')->getData(), $form->get('body')->getData());
+            $this->get('app_bundle.mailer_service')->sendMail(
+                $form->get('subject')->getData(),
+                $form->get('body')->getData(),
+                $withSection ? $form->get('section')->getData() : null
+            );
             $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.message_sended'));
 
             return $this->redirectToRoute('child_index');

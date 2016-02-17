@@ -84,3 +84,6 @@ my_childre:
 mail:
     subject: Тема письма
     body: Тело письма
+    for_all: Для всех
+    for_section: Для секции
+    section: Секция

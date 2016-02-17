@@ -1,13 +1,13 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     umnichka
     database_user:     root
     database_password: ~
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
+    mailer_transport:  gmail
+    mailer_host:       smtp.gmail.com
     mailer_user:       ~
     mailer_password:   ~
-    from_email: send@example.com
+    from_email:        send@example.com
     secret:            ThisTokenIsNotSoSecretChangeIt
     page_size:         20

@@ -4,7 +4,7 @@
     <h2>{{ 'menu.sections.name'|trans }}</h2>
     {{ form_start(form, { 'attr': { 'action': path('section_new')}}) }}
         <div class="input-group">
-            {{ form_widget(form.name, { 'attr': { 'placeholder': 'section.form.new_section'|trans }}) }}
+            {{ form_widget(form.name, { 'attr': { 'placeholder': 'section.form.new_section' }}) }}
             <div class="input-group-btn">
                 <button type="submit" class="btn btn-default">{{ 'menu.add'|trans }}</button>
             </div>
