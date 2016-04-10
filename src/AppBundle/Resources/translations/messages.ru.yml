@@ -29,6 +29,7 @@ flash_messages:
     lesson_created: Урок создан
     lesson_removed: Урок удален
     message_sended: Сообщение отправлено
+    teacher_created: Преподаватель создан
 navigation:
     back: Назад
 forms:
@@ -87,3 +88,11 @@ mail:
     for_all: Для всех
     for_section: Для секции
     section: Секция
+email: E-mail
+phone: Телефон
+teachers:
+    title: Преподаватели
+    name: Имя преподавателя
+    all_teachers: Все преподаватели
+    create: Добавление преподавателя
+    edit:  Редактирование преподавателя

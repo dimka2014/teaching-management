@@ -1,0 +1,22 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <div class="form-middle">
+        <h2>
+            {{ 'teachers.edit'|trans }}
+            <div class="delete-form">
+                {{ form_start(delete_form) }}
+                <input class="btn btn-sm btn-danger btn-block" type="submit" value="{{ 'forms.delete'|trans }}" />
+                {{ form_end(delete_form) }}
+            </div>
+        </h2>
+        {{ form_start(edit_form) }}
+
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{{ 'forms.save'|trans }}" />
+        {{ form_end(edit_form) }}
+    </div>
+
+    {% from '@App/macros.html.twig' import backBlock %}
+    {{ backBlock(path('teacher_index')) }}
+{% endblock %}

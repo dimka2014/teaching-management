@@ -1,0 +1,28 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block admin_content %}
+    <h2>{{ 'teachers.title'|trans }}</h2>
+    <table class="table table-bordered table-striped children-table">
+        <thead>
+        <tr>
+            <th>{{ 'teachers.name'|trans }}</th>
+            <th>{{ 'email'|trans }}</th>
+            <th>{{ 'phone'|trans }}</th>
+            <th class="table-last">{{ 'menu.actions'|trans }}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+            <tr>
+                <th>{{ teacher.name }}</th>
+                <th>{{ teacher.email }}</th>
+                <th>{{ teacher.phone }}</th>
+                <th class="table-last">
+                    <a href="{{ path('teacher_edit', { 'id': teacher.id }) }}" class="btn btn-default">{{ 'menu.buttons.edit'|trans }}</a>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ pagerfanta(teachers) }}
+{% endblock %}
