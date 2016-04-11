@@ -21,8 +21,9 @@ class MailController extends Controller
     public function allAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Child');
+        $description = $this->get('translator')->trans('mail.send_all');
 
-        return $this->handleForm($request, false, function () use ($repository) {
+        return $this->handleForm($request, false, $description, function () use ($repository) {
             return $repository->getParentsEmailsAndNames(null);
         });
     }
@@ -35,8 +36,9 @@ class MailController extends Controller
     public function sectionAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Child');
+        $description = $this->get('translator')->trans('mail.send_section');
 
-        return $this->handleForm($request, true, function ($section) use ($repository) {
+        return $this->handleForm($request, true, $description, function ($section) use ($repository) {
             return $repository->getParentsEmailsAndNames($section);
         });
     }
@@ -49,13 +51,14 @@ class MailController extends Controller
     public function teachersAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Teacher');
+        $description = $this->get('translator')->trans('mail.send_teachers');
 
-        return $this->handleForm($request, false, function () use ($repository) {
+        return $this->handleForm($request, false, $description, function () use ($repository) {
             return $repository->findAllNamesAndEmails();
         });
     }
 
-    private function handleForm(Request $request, $withSection, $getRecipients)
+    private function handleForm(Request $request, $withSection, $description, $getRecipients)
     {
         $form = $this->createForm('AppBundle\Form\MailType', null, ['with_section' => $withSection]);
         $form->handleRequest($request);
@@ -73,6 +76,7 @@ class MailController extends Controller
 
         return [
             'form' => $form->createView(),
+            'description' => $description,
         ];
     }
 }

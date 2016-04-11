@@ -89,6 +89,9 @@ mail:
     for_section: Для секции
     section: Секция
     for_teachers: Для преподавателей
+    send_all: Отправить сообщение всем родителям
+    send_section: Отправить сообщение всем родителям из секции
+    send_teachers: Отправить сообщение всем преподавателям
 email: E-mail
 phone: Телефон
 teachers:
