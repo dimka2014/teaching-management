@@ -50,8 +50,9 @@
                             {{ 'menu.sending'|trans }} <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('send_mail') }}">{{ 'mail.for_all'|trans }}</a></li>
-                            <li><a href="{{ path('send_mail', { section: true }) }}">{{ 'mail.for_section'|trans }}</a></li>
+                            <li><a href="{{ path('send_mail_all') }}">{{ 'mail.for_all'|trans }}</a></li>
+                            <li><a href="{{ path('send_mail_section') }}">{{ 'mail.for_section'|trans }}</a></li>
+                            <li><a href="{{ path('send_mail_teachers') }}">{{ 'mail.for_teachers'|trans }}</a></li>
                         </ul>
                     </li>
                 </ul>

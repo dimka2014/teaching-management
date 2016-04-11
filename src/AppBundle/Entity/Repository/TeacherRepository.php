@@ -16,4 +16,14 @@ class TeacherRepository extends EntityRepository
 
         return $result;
     }
+
+    public function findAllNamesAndEmails()
+    {
+        return $this
+            ->createQueryBuilder('t')
+            ->select('t.email AS email, t.name AS name')
+            ->distinct(true)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

@@ -13,7 +13,7 @@ use AppBundle\Form\TeacherType;
 /**
  * Teacher controller.
  *
- * @Route("/teachers")
+ * @Route("/admin/teachers")
  */
 class TeacherController extends Controller
 {

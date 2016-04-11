@@ -23,14 +23,14 @@ class MailerService
     /**
      * @param $subject
      * @param $body
-     * @param Section|null $section
+     * @param $recipients
      */
-    public function sendMail($subject, $body, Section $section = null)
+    public function sendMail($subject, $body, $recipients)
     {
         $message = \Swift_Message::newInstance();
         $message
             ->setFrom($this->fromEmail)
-            ->setTo($this->getAllRecipients($section))
+            ->setTo($this->prepareRecipients($recipients))
             ->setSubject($subject)
             ->setBody($body);
 
@@ -38,13 +38,13 @@ class MailerService
     }
 
     /**
-     * @param Section $section
+     * @param array $recipients
      * @return array
      */
-    private function getAllRecipients(Section $section = null)
+    private function prepareRecipients($recipients)
     {
         $result = [];
-        foreach ($this->em->getRepository('AppBundle:Child')->getParentsEmailsAndNames($section) as $data) {
+        foreach ($recipients as $data) {
             $result[$data['email']] = $data['name'];
         }
 

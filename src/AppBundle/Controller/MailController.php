@@ -14,25 +14,57 @@ use Symfony\Component\HttpFoundation\Request;
 class MailController extends Controller
 {
     /**
-     * @Route("/", name="send_mail")
+     * @Route("/all", name="send_mail_all")
      * @Method({"GET", "POST"})
-     * @Template
+     * @Template(template="AppBundle:Mail:mail.html.twig")
      */
-    public function mailAction(Request $request)
+    public function allAction(Request $request)
     {
-        $withSection = $request->get('section', false);
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Child');
 
-        $form = $this->createForm('AppBundle\Form\MailType', null, [
-            'with_section' => $withSection,
-        ]);
+        return $this->handleForm($request, false, function () use ($repository) {
+            return $repository->getParentsEmailsAndNames(null);
+        });
+    }
 
+    /**
+     * @Route("/section", name="send_mail_section")
+     * @Method({"GET", "POST"})
+     * @Template(template="AppBundle:Mail:mail.html.twig")
+     */
+    public function sectionAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Child');
+
+        return $this->handleForm($request, true, function ($section) use ($repository) {
+            return $repository->getParentsEmailsAndNames($section);
+        });
+    }
+
+    /**
+     * @Route("/teachers", name="send_mail_teachers")
+     * @Method({"GET", "POST"})
+     * @Template(template="AppBundle:Mail:mail.html.twig")
+     */
+    public function teachersAction(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Teacher');
+
+        return $this->handleForm($request, false, function () use ($repository) {
+            return $repository->findAllNamesAndEmails();
+        });
+    }
+
+    private function handleForm(Request $request, $withSection, $getRecipients)
+    {
+        $form = $this->createForm('AppBundle\Form\MailType', null, ['with_section' => $withSection]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->get('app_bundle.mailer_service')->sendMail(
                 $form->get('subject')->getData(),
                 $form->get('body')->getData(),
-                $withSection ? $form->get('section')->getData() : null
+                $getRecipients($withSection ? $form->get('section')->getData() : null)
             );
             $this->addFlash('success', $this->get('translator.default')->trans('flash_messages.message_sended'));
 

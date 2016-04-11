@@ -85,9 +85,10 @@ my_childre:
 mail:
     subject: Тема письма
     body: Тело письма
-    for_all: Для всех
+    for_all: Для всех детей
     for_section: Для секции
     section: Секция
+    for_teachers: Для преподавателей
 email: E-mail
 phone: Телефон
 teachers:
